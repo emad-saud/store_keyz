@@ -7,18 +7,20 @@ import CategoryModel from './categoryModel';
 import ItemModel from './itemModel';
 import UserModel from './userModel';
 import ProductImageModel from './productImageModel';
+import orderModel from './orderModel';
 
 const Category = CategoryModel(db);
 const Product = ProductModel(db);
 const Item = ItemModel(db);
 const User = UserModel(db);
+const Order = orderModel(db);
 const ProductImage = ProductImageModel(db);
 
 Category.hasOne(Product, { foreignKey: 'categoryId' });
 Product.belongsTo(Category, { foreignKey: 'categoryId' });
 
-// User.hasMany(Item, { foreignKey: 'userId' });
-// Item.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(Order, { foreignKey: 'userId' });
+Order.hasOne(User, { foreignKey: 'userId' });
 
 Product.hasMany(Item, { foreignKey: 'productId' });
 Item.belongsTo(Product, { foreignKey: 'productId' });
