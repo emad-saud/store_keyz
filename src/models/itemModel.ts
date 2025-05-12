@@ -4,6 +4,8 @@ interface ItemAttributes {
   id: string;
   productId: string;
   valid: boolean;
+  content: string;
+  soldAt: Date;
 }
 interface ItemCreationAttributes extends Optional<ItemAttributes, 'id'> {}
 export default (db: Sequelize) => {
@@ -20,9 +22,16 @@ export default (db: Sequelize) => {
         type: DataTypes.UUID,
         allowNull: false,
       },
+      content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       valid: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+      },
+      soldAt: {
+        type: DataTypes.DATE,
       },
     },
     {
