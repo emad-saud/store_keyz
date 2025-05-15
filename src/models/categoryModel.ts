@@ -33,6 +33,7 @@ export default (db: Sequelize) => {
       name: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
       },
       image: {
         type: DataTypes.STRING,
