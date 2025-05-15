@@ -7,7 +7,11 @@ import {
   getProduct,
   updateProduct,
 } from '../controllers/productController';
-
+import {
+  resizeProductImages,
+  uploadProductImages,
+} from '../controllers/imageUploadController';
+import { createImages } from '../controllers/productImageController';
 import { protect, restrictTo } from '../controllers/authController';
 import Role from '../enums/roles';
 
@@ -17,7 +21,13 @@ router.get('/', getAllProducts);
 router.get('/:productId', getProduct);
 
 router.use(protect, restrictTo([Role.Admin, Role.SuperUser]));
-router.post('/', createProduct);
+router.post(
+  '/',
+  uploadProductImages,
+  resizeProductImages,
+  createProduct,
+  createImages
+);
 router.route('/:productId').patch(updateProduct).delete(deleteProduct);
 
 export default router;
