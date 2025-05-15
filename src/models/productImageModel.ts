@@ -1,7 +1,7 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 
 interface ImageAttributes {
-  id: string;
+  id?: string;
   name: string;
   productId: string;
 }
@@ -26,4 +26,6 @@ export default (db: Sequelize) => {
     },
     { sequelize: db, modelName: 'ProductImage' }
   );
+
+  return ProductImage;
 };
