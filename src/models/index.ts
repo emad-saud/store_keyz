@@ -16,15 +16,29 @@ const User = UserModel(db);
 const Order = orderModel(db);
 const ProductImage = ProductImageModel(db);
 
-Category.hasOne(Product, { foreignKey: 'categoryId' });
+Category.hasMany(Product, { foreignKey: 'categoryId' });
 Product.belongsTo(Category, { foreignKey: 'categoryId' });
 
 User.hasMany(Order, { foreignKey: 'userId' });
-Order.hasOne(User, { foreignKey: 'userId' });
+Order.belongsTo(User, { foreignKey: 'userId' });
 
 Product.hasMany(Item, { foreignKey: 'productId' });
 Item.belongsTo(Product, { foreignKey: 'productId' });
 
-type UserInstace = InstanceType<typeof User>;
+Item.hasOne(Order, { foreignKey: 'itemId' });
+Order.belongsTo(Item, { foreignKey: 'itemId' });
 
-export { db, Product, Category, Item, User, UserInstace, ProductImage };
+type UserInstace = InstanceType<typeof User>;
+type ProductInstance = InstanceType<typeof Product>;
+
+export {
+  db,
+  Product,
+  Category,
+  Item,
+  User,
+  UserInstace,
+  ProductInstance,
+  ProductImage,
+  Order,
+};
