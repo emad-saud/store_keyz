@@ -1,7 +1,7 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
 
 interface ProductAttributes {
-  id: string;
+  id?: string;
   price: number;
   categoryId: string;
   name: string;
