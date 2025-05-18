@@ -12,6 +12,7 @@ interface CategoryAttributes {
   id: string;
   name: string;
   image?: string;
+  description: string;
 }
 
 interface CategoryCreationAttributes
@@ -38,6 +39,10 @@ export default (db: Sequelize) => {
       image: {
         type: DataTypes.STRING,
         defaultValue: 'default_category.jpg',
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
