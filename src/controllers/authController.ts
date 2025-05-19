@@ -93,7 +93,7 @@ export const isLoggedIn: RequestHandler = async (req, res, next) => {
       if (!user || user.changedPasswordAfter(decoded.iat!)) return next();
       res.locals.user = user;
     } catch (err) {
-      return next()
+      return next();
     }
   }
 };
