@@ -80,3 +80,20 @@ export const restrictTo = (roles: Role[]): RequestHandler => {
     next();
   };
 };
+
+export const isLoggedIn: RequestHandler = async (req, res, next) => {
+  if (req.cookies.jwt) {
+    try {
+      const decoded = await jwt.verify(req.cookies.jwt, process.env.JWT_SECRET);
+      if (typeof decoded !== 'object' || !('id' in decoded)) {
+        return next();
+      }
+
+      const user = await User.findByPk(decoded.id);
+      if (!user || user.changedPasswordAfter(decoded.iat!)) return next();
+      res.locals.user = user;
+    } catch (err) {
+      return next()
+    }
+  }
+};
