@@ -5,7 +5,13 @@ import {
   Optional,
   FindOptions,
   Includeable,
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
 } from 'sequelize';
+
+import slugify from 'slugify';
+
 import { Product } from '.';
 
 interface CategoryAttributes {
@@ -13,6 +19,7 @@ interface CategoryAttributes {
   name: string;
   image?: string;
   description: string;
+  slug?: string;
 }
 
 interface CategoryCreationAttributes
@@ -20,9 +27,15 @@ interface CategoryCreationAttributes
 
 export default (db: Sequelize) => {
   class Category extends Model<
-    CategoryAttributes,
-    CategoryCreationAttributes
-  > {}
+    InferAttributes<Category>,
+    InferCreationAttributes<Category>
+  > {
+    declare id: CreationOptional<string>;
+    declare name: string;
+    declare slug: string;
+    declare image: CreationOptional<string>;
+    declare description: string;
+  }
 
   Category.init(
     {
@@ -35,10 +48,17 @@ export default (db: Sequelize) => {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
+        set(value: string) {
+          this.setDataValue('name', value);
+          this.setDataValue('slug', slugify(value, { lower: true }));
+        },
+      },
+      slug: {
+        type: DataTypes.STRING,
       },
       image: {
         type: DataTypes.STRING,
-        defaultValue: 'default_category.jpg',
+        defaultValue: 'default_category.png',
       },
       description: {
         type: DataTypes.STRING,
@@ -73,6 +93,15 @@ export default (db: Sequelize) => {
     }
     options.include = includeArray;
   });
+
+  Category.addHook(
+    'beforeValidate',
+    (category: InstanceType<typeof Category>) => {
+      if (category.name) {
+        category.slug = slugify(category.name);
+      }
+    }
+  );
 
   return Category;
 };
