@@ -53,6 +53,7 @@ export const authPassword: RequestHandler = (req, res, next) => {
       res.status(200).json({
         status: 'success',
         token,
+        message: 'Logged In Successfully!',
       });
     }
   )(req, res, next);
