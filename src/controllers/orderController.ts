@@ -6,13 +6,29 @@ import {
   updateOneFactory,
 } from './factoryHandler';
 
-import { Item, Order } from '../models';
+import { Item, Order, Product } from '../models';
 import catchAsync from '../utils/catchAsync';
 import AppError from '../utils/appError';
+import { RequestHandler } from 'express';
 
 const getAllOrders = getAll(Order);
 
 const getOrder = getOne(Order, 'params:orderId');
+
+const getProductItem: RequestHandler = catchAsync(async (req, res, next) => {
+  if (!req.body.productId) {
+    return next(new AppError('Please provide a productId to buy!', 400));
+  }
+  const item = await Item.findOne({
+    where: {
+      id: req.body.productId,
+    },
+  });
+  if (!item)
+    return next(new AppError('No stock available for that product', 400));
+  req.body.itemId = item.id;
+  next();
+});
 
 const createOrder = catchAsync(async (req, res, next) => {
   if (!req.body.itemId) {
@@ -78,4 +94,11 @@ const getUserOrders = catchAsync(async (req, res, next) => {
   });
 });
 
-export { getAllOrders, getMyOrders, createOrder, deleteOrder, getUserOrders };
+export {
+  getAllOrders,
+  getMyOrders,
+  createOrder,
+  deleteOrder,
+  getUserOrders,
+  getProductItem,
+};

@@ -6,6 +6,7 @@ import {
   getAllOrders,
   getMyOrders,
   getUserOrders,
+  getProductItem,
 } from '../controllers/orderController';
 import { protect, restrictTo } from '../controllers/authController';
 import Role from '../enums/roles';
