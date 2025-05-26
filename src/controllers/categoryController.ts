@@ -16,7 +16,11 @@ const updateCategory = updateOneFactory(Category, 'params:categoryId', [
   'image',
 ]);
 
-const createCategory = createOne(Category, ['name', 'image']);
+const createCategory = createOne(
+  Category,
+  ['name', 'image', 'description'],
+  'successfully created the category'
+);
 
 export {
   getAllCategories,
