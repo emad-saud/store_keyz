@@ -1,4 +1,12 @@
-import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  Sequelize,
+  Optional,
+  FindOptions,
+  Includeable,
+} from 'sequelize';
+import { ProductImage } from '.';
 
 interface ProductAttributes {
   id?: string;
@@ -6,6 +14,7 @@ interface ProductAttributes {
   categoryId: string;
   name: string;
   description: string;
+  currency: 'LYD' | 'USD';
 }
 
 interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
@@ -29,7 +38,7 @@ export default (db: Sequelize) => {
         allowNull: false,
       },
       price: {
-        type: DataTypes.DECIMAL(2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         validate: {
           min: {
@@ -38,6 +47,10 @@ export default (db: Sequelize) => {
           },
         },
       },
+      currency: {
+        type: DataTypes.ENUM('LYD', 'USD'),
+        defaultValue: 'LYD',
+      },
       categoryId: {
         type: DataTypes.UUID,
         allowNull: false,
@@ -45,6 +58,29 @@ export default (db: Sequelize) => {
     },
     { sequelize: db, modelName: 'Product' }
   );
+
+  Product.addHook('beforeFind', (options: FindOptions<ProductAttributes>) => {
+    if (!options.include) {
+      options.include = [];
+    } else if (!Array.isArray(options.include)) {
+      options.include = [options.include];
+    }
+
+    const includeArray = options.include as Includeable[];
+    const alreadyIncluded = options.include.some((include) => {
+      if (typeof include === 'object' && 'model' in include) {
+        return include.model === ProductImage;
+      }
+      return false;
+    });
+
+    if (!alreadyIncluded) {
+      includeArray.push({
+        model: ProductImage,
+      });
+    }
+    options.include = includeArray;
+  });
 
   return Product;
 };
