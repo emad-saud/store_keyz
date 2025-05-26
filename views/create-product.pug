@@ -1,0 +1,49 @@
+extends base
+
+block content 
+  form-box 
+    form#create-product-form.post-form
+      .form-group 
+        label(for="name") Product Name
+        input#name(type="text" name="name" required placeholder="Ex: PUBG")
+
+      .form-group 
+        label(for="price") Product Price
+        input#price(type="number" name="price" required placeholder="Ex: PUBG")
+
+      .form-group
+        label(for="description") Product Description
+        input#description(type="text" name="description" required placeholder="Get your Pubg UC's for the best price on planet.")
+
+      .form-group 
+        label(for="product-currency") Product Currency
+        select#product-currency
+          button 
+            selectedcontent 
+            span.picker 
+              i.fa-solid.fa-arrow-down
+          option(value="LYD") LYD
+          option(value="USD") USD
+
+      .form-group 
+        label(for="product-category") Product Category
+        select#product-category
+          button 
+            selectedcontent 
+            span.picker 
+              i.fa-solid.fa-arrow-down
+          if categories && categories.length > 0
+            each category in categories 
+              option(value=category.id)=category.name
+
+      .form-group
+        label.file-lbl-input(for="product-images") Product Images
+        input#product-images(type="file" multiple name="productImages" placeholder="Choose a Picture for the Category.")
+
+      button(type="submit") Submit
+
+      
+
+    //- p.form-page-link
+    //-   | Don't have an account? 
+    //-   a(href='/sign-up') Sign up
