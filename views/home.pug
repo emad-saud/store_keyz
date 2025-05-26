@@ -1,0 +1,19 @@
+extends base
+
+block content 
+  if user && (user.role === 'admin' || user.role === 'super-user')
+    .ctrl-nav
+      ul
+        li 
+          a.create-category-btn(href='/create-category') Create Category
+  section.categories
+    if categories && categories.length > 0
+      .category-grid 
+        each category in categories
+          .category-card(data-slug=`${category.slug}`)
+            img(src=`${imagekit.url}/${category.image}`)
+            h3.category-title.card-title=category.name
+            p.category-desc=category.description
+            a.view-category-btn(href=`/category/${category.id}`) View Category
+    else 
+      p.no-items No categories available.
