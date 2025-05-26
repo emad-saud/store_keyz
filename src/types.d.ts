@@ -13,6 +13,9 @@ declare global {
       DB_HOST: string;
       NODE_ENV: string;
       JWT_SECRET: string;
+      IMAGEKIT_PUBLIC_KEY: string;
+      IMAGEKIT_PRIVATE_KEY: string;
+      IMAGEKIT_URL_ENDPOINT: string;
     }
   }
   namespace Express {
