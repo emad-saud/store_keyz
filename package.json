@@ -9,7 +9,8 @@
     "watch:css": "sass --watch public/scss/main.scss public/css/style.css",
     "build:css": "sass public/scss/main.scss public/css/style.css",
     "watch:js": "npx esbuild public/ts/main.ts --bundle --outfile=public/js/bundle.js --watch",
-    "build:js": "npx esbuild public/ts/main.ts --bundle --outfile=public/js/bundle.js"
+    "build:js": "npx esbuild public/ts/main.ts --bundle --outfile=public/js/bundle.js",
+    "build:all": "npm run build && npm run build:css && npm run build:js"
   },
   "keywords": [],
   "author": "",
