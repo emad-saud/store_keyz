@@ -55,6 +55,7 @@ export default (db: Sequelize) => {
       },
       slug: {
         type: DataTypes.STRING,
+        // allowNull: false,
       },
       image: {
         type: DataTypes.STRING,
@@ -95,10 +96,10 @@ export default (db: Sequelize) => {
   });
 
   Category.addHook(
-    'beforeValidate',
-    (category: InstanceType<typeof Category>) => {
-      if (category.name) {
-        category.slug = slugify(category.name);
+    'beforeSave',
+    async (category: InstanceType<typeof Category>) => {
+      if (category.dataValues.name) {
+        category.dataValues.slug = slugify(category.dataValues.name);
       }
     }
   );
