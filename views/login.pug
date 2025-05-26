@@ -1,0 +1,18 @@
+extends base
+
+block content 
+  .form-box 
+    form#login-form.auth-form
+      .form-group 
+        label(for="email") Email
+        input#email(type="email" name="email" required placeholder="you@example.com")
+
+      .form-group
+        label(for="password") Password
+        input#password(type="password" name="password" required placeholder="strong-password")
+
+      button(type="submit") Log In
+
+    p.form-page-link
+      | Don't have an account? 
+      a(href='/sign-up') Sign up
