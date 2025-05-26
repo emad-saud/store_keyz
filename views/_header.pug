@@ -1,7 +1,7 @@
 nav.header
   .header__logo
     a(href="/")
-      img(src="/imgs/logo.png")
+      img(src=`${imagekit.url}/logo.png`)
 
   .header__nav
     ul
@@ -20,7 +20,7 @@ nav.header
       .user-menu
         .user-info
           span= user.username
-          img.user-avatar(src=`/imgs/users/${user.picture}`, alt=user.username)
+          img.user-avatar(src=`${imagekit.url}/${user.picture}`, alt=user.username)
           if (user.role === 'admin' || user.role === 'super-user')
             a.admin-panel(href='/admin-panel') Admin Panel
         //- .dropdown-menu
