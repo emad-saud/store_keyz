@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./build/server.js",
+    "start": "NODE_ENV=production node ./build/server.js",
+    "dev": "nodemon ./build/server.js",
+    "build": "tsc",
     "watch:css": "sass --watch public/scss/main.scss public/css/style.css",
-    "watch:js": "npx esbuild public/ts/main.ts --bundle --outfile=public/js/bundle.js --watch"
+    "build:css": "sass public/scss/main.scss public/css/style.css",
+    "watch:js": "npx esbuild public/ts/main.ts --bundle --outfile=public/js/bundle.js --watch",
+    "build:js": "npx esbuild public/ts/main.ts --bundle --outfile=public/js/bundle.js"
   },
   "keywords": [],
   "author": "",
