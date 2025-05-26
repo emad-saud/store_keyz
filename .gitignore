@@ -3,4 +3,5 @@ build/
 .env
 public/imgs/*
 public/css/style.css*
+public/js/*
 # .prettierrc
