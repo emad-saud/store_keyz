@@ -21,7 +21,8 @@ const getProductItem: RequestHandler = catchAsync(async (req, res, next) => {
   }
   const item = await Item.findOne({
     where: {
-      id: req.body.productId,
+      productId: req.body.productId,
+      valid: true,
     },
   });
   if (!item)
@@ -43,7 +44,7 @@ const createOrder = catchAsync(async (req, res, next) => {
   });
 
   const item = await Item.update(
-    { valid: false },
+    { valid: false, soldAt: new Date() },
     {
       where: {
         id: req.body.itemId,
