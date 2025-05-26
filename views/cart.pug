@@ -1,0 +1,17 @@
+extends base
+
+block content 
+  if orders && orders.length > 0
+    .items-grid 
+      each order in orders
+        .item-card(data-id=order.Item.id data-product=order.Item.productId) 
+          - const formattedDate = new Date(order.Item.soldAt).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })
+          .sold-at(data-soldAt=order.Item.soldAt)=formattedDate 
+          .item-details 
+            .item-content=order.Item.content 
+            .copy-btn 
+              i.fa-solid.fa-copy
+          .item-status=`${order.Item.valid ? 'valid':'sold'}`
+  else
+    p.no-items No Items available.
+
