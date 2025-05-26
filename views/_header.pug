@@ -1,0 +1,32 @@
+nav.header
+  .header__logo
+    a(href="/")
+      img(src="/imgs/logo.png")
+
+  .header__nav
+    ul
+      li
+        a(href="/") Home
+        //- i(class="fa-solid fa-house")
+      li
+        a(href="/products") Products
+        //- i(class="fa-solid fa-box")
+      li
+        a(href="/cart") Cart
+        //- i(class="fa-solid fa-cart-shopping")
+
+  .header__auth
+    if user
+      .user-menu
+        .user-info
+          span= user.username
+          img.user-avatar(src=`/imgs/users/${user.picture}`, alt=user.username)
+          if (user.role === 'admin' || user.role === 'super-user')
+            a.admin-panel(href='/admin-panel') Admin Panel
+        //- .dropdown-menu
+        //-   a(href="/account") Account
+        //-   a(href="/auth/logout") Logout
+    else
+      .auth-links
+        a(href="/login") Login
+        a(href="/sign-up") Sign up
