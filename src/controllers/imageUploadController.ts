@@ -4,18 +4,11 @@ import { Request } from 'express';
 import { v4 } from 'uuid';
 import path from 'path';
 import fs from 'fs';
+import axios from 'axios';
 
 import catchAsync from '../utils/catchAsync';
 import AppError from '../utils/appError';
-
-// Create the "public/imgs/*" directories in they don't exist!
-const outputDirs = ['products', 'categories'];
-outputDirs.forEach((el) => {
-  const dirName = path.join(__dirname, `./public/imgs/${el}`);
-  if (!fs.existsSync(dirName)) {
-    fs.mkdirSync(dirName, { recursive: true });
-  }
-});
+import imagekit from '../config/imagekit';
 
 const storage = multer.memoryStorage();
 const fileFilter = (
@@ -28,6 +21,8 @@ const fileFilter = (
   // console.log(file);
 
   if (file.mimetype.startsWith('image')) {
+    console.log('file is coming!');
+    // console.log(file);
     cb(null, true);
   } else {
     cb(new AppError('Only images are allowed!', 400));
@@ -54,11 +49,20 @@ const resizeCategoryImage = catchAsync(async (req, res, next) => {
   // console.log('BODY: ');
   // console.log(req.body);
 
-  await image
+  const resizedImage = await image
     .resize(500, 500)
-    .toFormat('jpeg')
-    .jpeg({ quality: 90 })
-    .toFile(`public/imgs/categories/${req.body.image}`);
+    .jpeg()
+    // .toFile(`public/imgs/categories/${req.body.image}`);
+    .toBuffer();
+
+  const base64Image = resizedImage.toString('base64');
+
+  const response = await imagekit.upload({
+    file: base64Image,
+    fileName: req.body.image,
+  });
+
+  req.body.image = response.url;
 
   next();
 });
@@ -75,12 +79,15 @@ const resizeProductImages = catchAsync(async (req, res, next) => {
   await Promise.all(
     images.map(async (file, index) => {
       const filename = `${v4()}-${Date.now()}-${index + 1}.jpeg`;
-      await sharp(file.buffer)
-        .resize(800, 800)
-        .toFormat('jpeg')
-        .toFile(path.join(outDir, filename));
-
-      req.body.productImages.push(filename);
+      const fileBuffer = await sharp(file.buffer)
+        .resize(500, 500)
+        .jpeg()
+        .toBuffer();
+      const response = await imagekit.upload({
+        file: fileBuffer,
+        fileName: filename,
+      });
+      req.body.productImages.push(response.url);
     })
   );
 
