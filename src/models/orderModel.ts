@@ -1,4 +1,12 @@
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import {
+  DataTypes,
+  FindOptions,
+  Includeable,
+  Model,
+  Optional,
+  Sequelize,
+} from 'sequelize';
+import { Item } from '.';
 
 interface OrderAttributes {
   id?: string;
@@ -30,6 +38,29 @@ export default (db: Sequelize) => {
       modelName: 'Order',
     }
   );
+
+  Order.addHook('beforeFind', (options: FindOptions<OrderAttributes>) => {
+    if (!options.include) {
+      options.include = [];
+    } else if (!Array.isArray(options.include)) {
+      options.include = [options.include];
+    }
+
+    const includeArray = options.include as Includeable[];
+    const alreadyIncluded = options.include.some((include) => {
+      if (typeof include === 'object' && 'model' in include) {
+        return include.model === Item;
+      }
+      return false;
+    });
+
+    if (!alreadyIncluded) {
+      includeArray.push({
+        model: Item,
+      });
+    }
+    options.include = includeArray;
+  });
 
   return Order;
 };
