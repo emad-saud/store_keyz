@@ -1,0 +1,26 @@
+extends base
+
+block content 
+  .form-box 
+    form#sign-up-form.auth-form
+      .form-group
+        label(for="username") Username
+        input#username(type="text" name="username" required placeholder="your username")
+
+      .form-group 
+        label(for="email") Email
+        input#email(type="email" name="email" required placeholder="you@example.com")
+      
+      .form-group
+        label(for="password") Password
+        input#password(type="password" name="password" required placeholder="strong-password")
+
+      .form-group
+        label(for="password-confirm") Password Confirm
+        input#password-confirm(type="password" name="password-confirm" required placeholder="confirm your password")
+
+      button(type="submit") Sign Up
+
+    p.form-page-link
+      | Already have an account? 
+      a(href='/login') Log In
