@@ -15,7 +15,12 @@ const router = Router();
 
 router.use(protect);
 
-router.post('/', getProductItem, createOrder);
+router.post(
+  '/',
+  restrictTo([Role.Admin, Role.SuperUser]),
+  getProductItem,
+  createOrder
+);
 router.get('/my-orders', getMyOrders);
 
 // Super User routes
