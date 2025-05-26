@@ -49,7 +49,8 @@ export const getOne = <T extends Model>(
 
 export const createOne = <T extends Model>(
   model: ModelStatic<T>,
-  fields: (keyof Attributes<T>)[]
+  fields: (keyof Attributes<T>)[],
+  successMessage: string = 'success'
 ) => {
   return catchAsync(async (req, res, next) => {
     const record = await model.create(req.body, {
@@ -58,6 +59,7 @@ export const createOne = <T extends Model>(
 
     res.status(200).json({
       status: 'success',
+      message: successMessage,
       data: record,
     });
   });
