@@ -25,8 +25,11 @@ const createProduct = catchAsync(async (req, res, next) => {
   // console.log('BODY: ');
   // console.log(req.body);
 
+  req.body.price = +req.body.price;
+  console.log(req.body);
+
   const product = await Product.create(req.body, {
-    fields: ['categoryId', 'description', 'name', 'price'],
+    fields: ['categoryId', 'description', 'name', 'price', 'currency'],
   });
 
   req.product = product;
