@@ -12,6 +12,7 @@ import productRoutes from './routes/productRoutes';
 import itemRoutes from './routes/itemRoutes';
 import categoryRoutes from './routes/categoryRoutes';
 import viewsRoutes from './routes/viewRoutes';
+import orderRoutes from './routes/orderRoutes';
 
 import { setupJwtStrategy } from './config/jwtStrategy';
 import { setupLocalStrategy } from './config/localStrategy';
@@ -46,6 +47,7 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/items', itemRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/categories', categoryRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
 // VIEWS Routes
 app.use('/', viewsRoutes);
