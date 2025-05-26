@@ -83,7 +83,7 @@ export default (db: Sequelize) => {
       },
       picture: {
         type: DataTypes.STRING,
-        defaultValue: 'default.jpg',
+        defaultValue: 'default_user.jpg',
       },
       role: {
         type: DataTypes.ENUM(...Object.values(Role)),
