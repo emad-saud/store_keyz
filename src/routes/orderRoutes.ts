@@ -15,7 +15,7 @@ const router = Router();
 
 router.use(protect);
 
-router.post('/', createOrder);
+router.post('/', getProductItem, createOrder);
 router.get('/my-orders', getMyOrders);
 
 // Super User routes
