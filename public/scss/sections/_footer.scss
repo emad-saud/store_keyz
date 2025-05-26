@@ -1,0 +1,40 @@
+footer.footer {
+  padding: 2em 2em;
+  background-color: var(--neutral-black);
+  color: var(--neutral-light-gray);
+}
+
+.footer .footer__social {
+  h4 {
+    margin: 0;
+    font-weight: 500;
+    color: var(--primary-color);
+    padding-bottom: 15px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 0.9em;
+    padding-bottom: 10px;
+
+    .fa-facebook {
+      color: var(--facebook-blue);
+    }
+    .fa-whatsapp {
+      color: var(--whatsapp-green);
+    }
+    // .fa-github {
+    //   color: var(--github-black);
+    // }
+  }
+}
+
+.footer .footer__copyright {
+  p {
+    font-size: 0.8em;
+    padding-top: 10px;
+  }
+  a {
+    color: var(--accent-blue);
+  }
+}

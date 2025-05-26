@@ -1,0 +1,40 @@
+.items-grid {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+
+  .item-card {
+    background-color: var(--neutral-light-gray);
+    padding: 0 15px;
+    border-radius: 6px;
+
+    .sold-at {
+      font-size: 0.7em;
+      color: var(--facebook-blue);
+      padding: 5px 0;
+    }
+
+    .item-details {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: var(--neutral-white);
+      border-radius: 6px;
+      font-size: 0.9em;
+      color: var(--neutral-light-gray);
+
+      .item-content {
+        max-width: 70%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .item-status {
+      padding: 5px 0;
+      color: var(--whatsapp-green);
+    }
+  }
+}

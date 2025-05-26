@@ -1,0 +1,20 @@
+// Color Palette
+$primary-color: #007bff; // Blue
+$secondary-blue: #e6f0ff; // Blue for backgrounds
+$accent-blue: #00c2ff; // Accent cyan for CTAs
+
+$neutral-white: #ffffff; // Background
+$neutral-black: #1a1a1a; // Headings / strong text
+$neutral-grey: #4f4f4f; // Secondary text
+$neutral-light-gray: #d9d9d9; // Borders / inputs
+
+// Shadows
+$shadow-card: 0px 4px 12px rgba(0, 123, 255, 0.1);
+$shadow-cta-hover: 0 0 8px rgba(0, 194, 255, 0.4);
+$shadow-navbar: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+// Transition VARS
+$ts-duration: 0.3s;
+
+$font-heading: 'Poppins', 'Montserrat', sans-serif;
+$font-body: 'Inter', 'Roboto', sans-serif;

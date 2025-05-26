@@ -1,0 +1,14 @@
+// public/scss/main.scss
+@use 'variables' as *;
+@use 'base' as *;
+@use 'layout' as *;
+@use 'components' as *;
+
+// Sections imports
+@use './sections/header' as *;
+@use './sections/footer' as *;
+
+// Page imports
+@use './pages/home';
+@use './pages/products';
+@use './pages/cart';

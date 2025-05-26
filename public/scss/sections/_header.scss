@@ -1,0 +1,76 @@
+@use '../variables' as *;
+@use 'sass:color';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0em 2em;
+
+  .header__logo {
+    min-width: 10em;
+    width: 10em;
+
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+}
+
+.header .header__auth {
+  .auth-links {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+
+    a {
+      padding: 10px;
+      border-radius: 20px;
+      background-color: color.adjust($neutral-light-gray, $lightness: 10%);
+
+      transition: $ts-duration;
+      &:hover {
+        background-color: $neutral-light-gray;
+        box-shadow: $shadow-navbar;
+        color: color.adjust($primary-color, $lightness: 20%);
+      }
+    }
+  }
+}
+
+.header .header__nav {
+  ul {
+    display: flex;
+    justify-content: center;
+    gap: 4em;
+    padding: 0 10px;
+
+    @media (max-width: 768px) {
+      gap: 1.4em;
+    }
+
+    li {
+      &.active {
+        color: color.adjust($primary-color, $lightness: 20%);
+      }
+    }
+  }
+}
+
+.header .user-menu {
+  .user-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    .user-avatar {
+      width: 50px;
+    }
+  }
+  .admin-panel {
+    background-color: var(--facebook-blue);
+    color: var(--neutral-white);
+    padding: 10px;
+    border-radius: 3px;
+  }
+}

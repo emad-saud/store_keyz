@@ -1,0 +1,79 @@
+@use './variables' as *;
+@use 'sass:color';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  list-style: none; // removes bullets
+  padding: 0; // removes default padding
+  margin: 0; // removes default margin
+}
+
+input:focus {
+  outline: none;
+  box-shadow: $shadow-cta-hover;
+}
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; // 16px side padding
+  padding-right: 1rem;
+
+  // Max width at breakpoints
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+
+  @media (min-width: 1400px) {
+    max-width: 1320px;
+  }
+
+  .content {
+    min-height: calc(100vh - 160px - 50px);
+    background-color: color.adjust($neutral-grey, $lightness: 68%);
+  }
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
