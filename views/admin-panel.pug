@@ -1,0 +1,22 @@
+extends base
+
+block content 
+  form#create-item-form.post-form
+    .form-group 
+      label(for='content') Content 
+      input#content(type='text' name='content')
+
+    .form-group 
+      label(for='item-product')
+      select#item-product
+        button 
+          selectedcontent 
+          span.picker 
+            i.fa-solid.fa-arrow-down
+        if products && products.length > 0
+          each product in products 
+            option(value=product.id)=product.name
+
+    hr
+
+    button(type="submit") Submit
