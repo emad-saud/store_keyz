@@ -13,7 +13,7 @@ const getAllItems = getAll(Item);
 
 const getItem = getOne(Item, 'params:itemId');
 
-const createItem = createOne(Item, ['productId']);
+const createItem = createOne(Item, ['productId', 'content']);
 
 const deleteItem = deleteOne(Item, 'params:itemId');
 
