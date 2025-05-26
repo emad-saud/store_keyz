@@ -1,0 +1,22 @@
+extends base
+
+block content 
+  form-box 
+    form#create-category-form.post-form
+      .form-group 
+        label(for="name") Category Name
+        input#name(type="text" name="name" required placeholder="Ex: PUBG")
+
+      .form-group
+        label(for="description") Category Description
+        input#description(type="text" name="description" required placeholder="Get your Pubg UC's for the best price on planet.")
+
+      .form-group
+        label.file-lbl-input(for="image") Category image
+        input#image(type="file" name="image" placeholder="Choose a Picture for the Category.")
+
+      button(type="submit") Submit
+
+    //- p.form-page-link
+    //-   | Don't have an account? 
+    //-   a(href='/sign-up') Sign up
