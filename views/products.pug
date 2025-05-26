@@ -1,0 +1,30 @@
+extends base
+
+block content 
+  if user && (user.role === 'admin' || user.role === 'super-user')
+    .ctrl-nav
+      ul
+        li 
+          a.create-btn(href='/create-product') Create Product
+  if products && products.length > 0
+    .product-grid 
+      each product in products 
+        .product-card(data-category=product.categoryId data-id=product.id) 
+          if product.ProductImages && product.ProductImages.length > 0
+            .product-image-list
+              each image, index in product.ProductImages
+                .product-image(class= index === 0 ? 'active':'' data-index=index) 
+                  img(src=`${image.name}`)
+          else 
+            .product-image-list 
+              .product-image.active 
+                img(src=`${imagekit.url}/default_category.png`)
+          .product-details 
+            .product-title.card-title=product.name
+            - const rawPrice = +product.price
+            - const displayPrice = rawPrice % 1 === 0 ? rawPrice : rawPrice.toFixed(2)
+            .product-price=`${displayPrice} ${product.currency}`
+            .product-desc=product.description
+            button.product-buy(data-id=product.id) Buy Now!
+  else 
+    p.no-items No products available.
