@@ -48,6 +48,7 @@ export const authPassword: RequestHandler = (req, res, next) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
+        maxAge: 30 * 24 * 60 * 60 * 1000,
       });
 
       res.status(200).json({
